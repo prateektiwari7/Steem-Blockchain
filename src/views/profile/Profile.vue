@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img :src="profileImage">
+    <img src="/Users/yudiz/Documents/test-del/steamblockchain/vue-steem/src/views/profile/desktop.jpeg" >
   </div>
 </template>
 

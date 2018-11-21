@@ -1,22 +1,14 @@
-const path = require('path')
-const genDefaultConfig = require('@storybook/vue/dist/server/config/defaults/webpack.config.js')
-module.exports =function(baseConfig,env)  {
-    const config = genDefaultConfig(baseConfig, env)
+var path = require('path');
 
-    
-    function resolve(dir) {
-        return path.join(__dirname, '..', dir)
-     }
-       
-    
-     config.module =  {
+module.exports = {
+	module: {
 		rules: [
 			// Transform all ES6 files to plain old ES5.
 			{
 				test: /\.(js|jsx)$/,
 				exclude: [/bower_components/, /node_modules/, /styles/],
 				loader: 'babel-loader',
-				include: path.resolve(__dirname, 'src/')
+				include: path.resolve(__dirname, '../../src')
 			},
 			// Load images.
 			{
@@ -25,19 +17,16 @@ module.exports =function(baseConfig,env)  {
 				query: {
 					limit: 10000,
 					name: 'static/media/images/[name].[hash:8].[ext]'
-                },
-                include: path.resolve(__dirname, 'src/')
+				}
 			},
 			{
 				test: /\.scss$/,
 				loaders: ['style-loader', 'css-loader', 'sass-loader', 'resolve-url-loader?sourceMap', 'sass-loader?sourceMap'],
-				include: path.resolve(__dirname, 'src/')
+				include: path.resolve(__dirname, '../../')
 			},
 			{
 				test: /\.css$/,
-                loader: 'style!css?importLoaders=1',
-                include: path.resolve(__dirname, 'src/')
-        
+				loader: 'style!css?importLoaders=1'
 			},
 			// Fonts
 			{
@@ -45,8 +34,7 @@ module.exports =function(baseConfig,env)  {
 				loader: 'url-loader?limit=10000&mimetype=application/font-woff',
 				query: {
 					name: 'static/media/files/[name].[hash:8].[ext]'
-                },
-                include: path.resolve(__dirname, 'src/')
+				}
 			},
 			{
 				test: /\.svg$/,
@@ -67,14 +55,15 @@ module.exports =function(baseConfig,env)  {
 			},
 		],
 	},
-
-	config.resolve =  {
-        extensions: ['.js', '.vue', '.json'],
-        alias: {
-          vue$: 'vue/dist/vue.esm.js',
-        '@': resolve('src/'),
-      },
+	/**
+	 * Resolve import paths from global.SRCDIR
+	 * @see  http://moduscreate.com/es6-es2015-import-no-relative-path-webpack/
+	 */
+	resolve: {
+		modules: [
+			path.resolve(__dirname, '../../src'),
+			path.resolve(__dirname, '../../node_modules'),
+		],
+		extensions: ['.js', '.jsx']
 	}
-
-return config 
 };

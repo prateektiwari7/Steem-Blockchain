@@ -1,7 +1,6 @@
 <template>
   <div>
-    Profile!!!
-    <ProfileContainer></ProfileContainer>
+    <ProfileContainer> </ProfileContainer>
   </div>
 </template>
 
