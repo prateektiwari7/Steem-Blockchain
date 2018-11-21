@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@storybook/vue": "^4.0.7",
+    "babel-preset-stage-0": "^6.24.1",
     "steem": "^0.7.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
